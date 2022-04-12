@@ -3,19 +3,21 @@ import Card from '../components/Card';
 import CardInput from '../components/CardInput';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateWordBook } from '../redux/modules/wordBook';
+import { updateWordBook, updateWordBookFB } from '../redux/modules/wordBook';
 import { Link, useParams } from 'react-router-dom';
 
 const DetailPage = () => {
   const myLists = useSelector((state) => state.wordBook.list);
+
   const { index } = useParams();
 
-  const { word, desc, example } = myLists[index];
+  const { word, desc, example, id } = myLists[index];
 
   const [form, setForm] = useState({
     word: word,
     desc: desc,
     example: example,
+    id: id,
   });
   const dispatch = useDispatch();
 
@@ -30,8 +32,11 @@ const DetailPage = () => {
       word: form.word,
       desc: form.desc,
       example: form.example,
+      id: id,
     };
-    dispatch(updateWordBook(myLists));
+
+    // dispatch(updateWordBook(myLists));
+    dispatch(updateWordBookFB(myLists, myLists[index]));
   };
 
   return (
@@ -62,6 +67,7 @@ const DetailPage = () => {
           text={example}
         ></CardInput>
       </Card>
+
       <Link to='/'>
         <Button onClick={handleClick}>수정하기</Button>
       </Link>

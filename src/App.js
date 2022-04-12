@@ -1,10 +1,17 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AddPage from './pages/AddPage';
 import MainPage from './pages/MainPage';
 import DetailPage from './pages/DetailPage';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { loadWordBookFB } from './redux/modules/wordBook';
 
 function App() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(loadWordBookFB());
+  });
   return (
     <Wrapper>
       <Container>

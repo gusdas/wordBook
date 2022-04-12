@@ -4,7 +4,7 @@ import CardBlock from '../components/CardBlock';
 import styled, { keyframes } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeWordBook } from '../redux/modules/wordBook';
+import { removeWordBookFB } from '../redux/modules/wordBook';
 import { useScroll } from '../customHooks/useScroll';
 
 const MainPage = () => {
@@ -23,7 +23,9 @@ const MainPage = () => {
           <button
             name={i}
             onClick={(e) => {
-              dispatch(removeWordBook(parseInt(e.target.name)));
+              // dispatch(removeWordBook(parseInt(e.target.name)));
+
+              dispatch(removeWordBookFB(item.id, parseInt(e.target.name)));
             }}
           >
             삭제하기

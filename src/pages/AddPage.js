@@ -3,7 +3,7 @@ import Card from '../components/Card';
 import CardInput from '../components/CardInput';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { createWordBook } from '../redux/modules/wordBook';
+import { createWordBook, addWordBookFB } from '../redux/modules/wordBook';
 import { Link } from 'react-router-dom';
 
 const AddPage = () => {
@@ -18,7 +18,8 @@ const AddPage = () => {
     });
   };
   const handleClick = () => {
-    dispatch(createWordBook(form));
+    // dispatch(createWordBook(form));
+    dispatch(addWordBookFB(form));
   };
   return (
     <>
