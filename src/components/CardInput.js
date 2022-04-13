@@ -37,5 +37,7 @@ const Content = styled.input`
   margin-right: 10px;
   box-sizing: border-box;
   border: 1.5px solid;
+  border-radius: 5px;
+  outline: none;
 `;
 export default CardInput;

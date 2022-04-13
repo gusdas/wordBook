@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateWordBook, updateWordBookFB } from '../redux/modules/wordBook';
 import { Link, useParams } from 'react-router-dom';
-
+import Header from '../components/Header';
 const DetailPage = () => {
   const myLists = useSelector((state) => state.wordBook.list);
 
@@ -41,7 +41,7 @@ const DetailPage = () => {
 
   return (
     <>
-      <h3>단어 수정하기</h3>
+      <Header>단어 수정하기</Header>
       <Card>
         <CardInput
           title='단어'
@@ -78,7 +78,7 @@ const Button = styled.div`
   padding: 10px;
 
   text-align: center;
-  background-color: rgb(97, 0, 255);
+  background-color: #ff54e2;
   color: white;
 
   cursor: pointer;

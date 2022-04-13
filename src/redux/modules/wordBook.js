@@ -54,7 +54,6 @@ export const addWordBookFB = (wordBook) => {
   return async function (dispatch) {
     const docRef = await addDoc(collection(db, 'wordBook'), wordBook);
     const wordBook_data = { ...wordBook, id: docRef.id };
-    console.log(wordBook_data);
     dispatch(createWordBook(wordBook_data));
   };
 };

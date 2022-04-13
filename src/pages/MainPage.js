@@ -6,6 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeWordBookFB } from '../redux/modules/wordBook';
 import { useScroll } from '../customHooks/useScroll';
+import Header from '../components/Header';
+
+import {
+  AiFillDelete,
+  AiOutlineDelete,
+  AiFillEdit,
+  AiOutlineEdit,
+} from 'react-icons/ai';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -14,29 +22,29 @@ const MainPage = () => {
 
   return (
     <div>
-      <h3>MY DICTIONNARY</h3>
+      <Header>My Dictionary</Header>
+
       {myLists.map((item, i) => (
         <Card key={i}>
-          <CardBlock title='단어' content={item.word} color='black' />
-          <CardBlock title='설명' content={item.desc} color='black' />
-          <CardBlock title='예시' content={item.example} color='skyblue' />
-          <button
-            name={i}
+          <FloatDelBtn
             onClick={(e) => {
               // dispatch(removeWordBook(parseInt(e.target.name)));
 
-              dispatch(removeWordBookFB(item.id, parseInt(e.target.name)));
+              dispatch(removeWordBookFB(item.id, parseInt(i)));
             }}
           >
-            삭제하기
-          </button>
-          <button
+            <AiOutlineDelete />
+          </FloatDelBtn>
+          <FloatBtn
             onClick={() => {
               navigate(`/detail/${i}`);
             }}
           >
-            수정하기
-          </button>
+            <AiOutlineEdit />
+          </FloatBtn>
+          <CardBlock title='단어' content={item.word} color='black' />
+          <CardBlock title='설명' content={item.desc} color='black' />
+          <CardBlock title='예시' content={item.example} color='skyblue' />
         </Card>
       ))}
 
@@ -49,7 +57,6 @@ const MainPage = () => {
 const boxAnimation = keyframes`
 from{
   bottom: 1rem;
-  
 }
 
 to{
@@ -57,11 +64,12 @@ to{
   transform: translateY()
   }
 `;
+
 const Button = styled.button`
   width: 5rem;
   height: 5rem;
 
-  background-color: rgb(97, 0, 255);
+  background-color: #ff54e2;
   color: white;
   font-weight: bold;
   font-size: 4.5rem;
@@ -70,12 +78,48 @@ const Button = styled.button`
   cursor: pointer;
 
   border: none;
-  position: absolute;
+  position: sticky;
 
-  bottom: 1rem;
+  bottom: 0rem;
   left: 15rem;
 
   animation: ${boxAnimation} 1s 1s infinite linear;
 `;
 
+const FloatBtn = styled.button`
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  margin: 5px;
+  border: none;
+  position: absolute;
+
+  background-color: rgba(255, 255, 255, 0);
+
+  top: 0rem;
+  right: 0.5rem;
+
+  :hover {
+    color: #ff54e2;
+  }
+`;
+const FloatDelBtn = styled.button`
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  margin: 5px;
+  border: none;
+  position: absolute;
+
+  background-color: rgba(255, 255, 255, 0);
+
+  top: 0rem;
+  right: 2.5rem;
+
+  :hover {
+    color: #ff54e2;
+  }
+`;
 export default MainPage;

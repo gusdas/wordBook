@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { createWordBook, addWordBookFB } from '../redux/modules/wordBook';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 const AddPage = () => {
   const [form, setForm] = useState({});
@@ -23,7 +24,8 @@ const AddPage = () => {
   };
   return (
     <>
-      <h3>단어 추가하기</h3>
+      <Header>단어 추가하기</Header>
+
       <Card>
         <CardInput
           title='단어'
@@ -52,13 +54,16 @@ const AddPage = () => {
     </>
   );
 };
-const Button = styled.div`
+const Button = styled.button`
   padding: 10px;
+  width: 100%;
 
   text-align: center;
-  background-color: rgb(97, 0, 255);
+  background-color: #ff54e2;
   color: white;
 
   cursor: pointer;
+  outline: none;
+  border: none;
 `;
 export default AddPage;

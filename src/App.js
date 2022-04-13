@@ -6,14 +6,20 @@ import DetailPage from './pages/DetailPage';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { loadWordBookFB } from './redux/modules/wordBook';
-
+import { Helmet } from 'react-helmet';
+import Test from './Test';
+import Spinner from './components/Spiner';
 function App() {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadWordBookFB());
   });
+
   return (
     <Wrapper>
+      <Helmet>
+        <title>나의단어장</title>
+      </Helmet>
       <Container>
         <Routes>
           <Route element={<MainPage />} path='/' />
@@ -21,7 +27,9 @@ function App() {
           <Route element={<DetailPage />} path='/detail/:index' />
         </Routes>
       </Container>
+      <Spinner />
     </Wrapper>
+    // <Test></Test>
   );
 }
 const Wrapper = styled.div`
@@ -32,7 +40,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 const Container = styled.div`
-  background-color: rgb(226, 255, 248);
+  background-color: #4382e6;
   padding: 0px 15px 20px;
   height: 40rem;
   width: 20rem;
@@ -40,5 +48,7 @@ const Container = styled.div`
   position: relative;
 
   overflow: auto;
+  border: 1px solid black;
+  border-radius: 5px;
 `;
 export default App;
