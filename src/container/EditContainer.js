@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateWordBook, updateWordBookFB } from '../redux/modules/wordBook';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
-const DetailPage = () => {
+const EditContainer = () => {
   const myLists = useSelector((state) => state.wordBook.list);
 
   const { index } = useParams();
@@ -85,4 +85,4 @@ const Button = styled.div`
 
   text-decoration: none;
 `;
-export default DetailPage;
+export default EditContainer;

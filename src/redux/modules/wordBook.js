@@ -6,6 +6,9 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  serverTimestamp,
+  query,
+  orderBy,
 } from 'firebase/firestore';
 
 // Actions
@@ -16,6 +19,7 @@ const REMOVE = 'wordBooks/REMOVE';
 
 //initial State
 const initialState = {
+  is_loaded: false,
   list: [],
 };
 
@@ -39,8 +43,9 @@ export function removeWordBook(index) {
 //middleware
 export const loadWordBookFB = () => {
   return async function (dispatch) {
-    const wordBook_data = await getDocs(collection(db, 'wordBook'));
-
+    const wordBook_data = await getDocs(
+      query(collection(db, 'wordBook'), orderBy('time'))
+    );
     let wordBook_list = [];
 
     wordBook_data.forEach((doc) => {
@@ -52,6 +57,8 @@ export const loadWordBookFB = () => {
 
 export const addWordBookFB = (wordBook) => {
   return async function (dispatch) {
+    const time = serverTimestamp();
+    wordBook = { ...wordBook, time: time };
     const docRef = await addDoc(collection(db, 'wordBook'), wordBook);
     const wordBook_data = { ...wordBook, id: docRef.id };
     dispatch(createWordBook(wordBook_data));
@@ -60,6 +67,8 @@ export const addWordBookFB = (wordBook) => {
 
 export const updateWordBookFB = (wordBooks, wordBook) => {
   return async function (dispatch) {
+    const time = serverTimestamp();
+    wordBook = { ...wordBook, time: time };
     const docRef = doc(db, 'wordBook', wordBook.id);
     updateDoc(docRef, wordBook);
     dispatch(updateWordBook(wordBooks));
@@ -77,20 +86,20 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // do reducer stuff
     case LOAD: {
-      return { list: action.wordBook_list };
+      return { list: action.wordBook_list, is_loaded: true };
     }
     case CREATE: {
       const new_wordBook_list = [...state.list, action.wordBook];
-      return { list: new_wordBook_list };
+      return { ...state, list: new_wordBook_list };
     }
     case UPDATE: {
       const new_wordBook_list = action.wordBooks;
-      return { list: new_wordBook_list };
+      return { ...state, list: new_wordBook_list };
     }
     case REMOVE: {
       const index = action.index;
       const new_wordBook_list = state.list.filter((item, i) => i !== index);
-      return { list: new_wordBook_list };
+      return { ...state, list: new_wordBook_list };
     }
     default:
       return state;
